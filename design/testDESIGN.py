@@ -259,8 +259,8 @@ class Ui_Form(object):
         print("TEST TEST")
         # self.bR2.close() - закрывает кнопку
         #
-        # lox = self.bR2.x() - 52
-        # lox2 = self.bR2.y() + 52
+        # x = self.bR2.x() - 52
+        # y = self.bR2.y() + 52
         #
         #
         # self.bR2.setGeometry(QtCore.QRect(lox, lox2, 46, 46)) # - пример движения кнопки
