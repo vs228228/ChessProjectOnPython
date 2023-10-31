@@ -256,7 +256,7 @@ class Ui_Form(object):
         self.bR2.clicked.connect(self.myF)
 
     def myF(self):
-        print("АААА ЧЕРНЫЙ")
+        print("TEST TEST")
         # self.bR2.close() - закрывает кнопку
         #
         # lox = self.bR2.x() - 52
