@@ -4,6 +4,7 @@ import sys
 import unittest
 from logic.board import Board
 from my_unittest import TestingBoard
+# new comment
 
 
 class MainWindow(QMainWindow, Ui_Form):
