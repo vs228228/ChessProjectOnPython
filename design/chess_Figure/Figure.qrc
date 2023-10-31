@@ -1,0 +1,21 @@
+<RCC>
+  <qresource prefix="blackFigure">
+    <file>bK.png</file>
+    <file>bN.png</file>
+    <file>bp.png</file>
+    <file>bQ.png</file>
+    <file>bR.png</file>
+    <file>bB.png</file>
+  </qresource>
+  <qresource prefix="whiteFigure">
+    <file>wB.png</file>
+    <file>wK.png</file>
+    <file>wN.png</file>
+    <file>wp.png</file>
+    <file>wQ.png</file>
+    <file>wR.png</file>
+  </qresource>
+  <qresource prefix="board">
+    <file>1451.jpg</file>
+  </qresource>
+</RCC>
