@@ -6,9 +6,6 @@ from logic.board import Board
 from my_unittest import TestingBoard
 
 
-#com
-
-
 class MainWindow(QMainWindow, Ui_Form):
     def __init__(self):
         super(MainWindow, self).__init__()
