@@ -263,7 +263,7 @@ class Ui_Form(object):
         # y = self.bR2.y() + 52
         #
         #
-        # self.bR2.setGeometry(QtCore.QRect(lox, lox2, 46, 46)) # - пример движения кнопки
+        # self.bR2.setGeometry(QtCore.QRect(x, y, 46, 46)) # - пример движения кнопки
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
