@@ -83,10 +83,10 @@ class Board:
     def isCheck(self):
         row = self.findKingRow()
         col = self.findKingCol()
-        print(row)
-        print(col)
-        print(self.can_move_figure(3, 7, row, col))
-        print(self.can_move_figure(3, 7, 0, 4))
+        # print(row)
+        # print(col)
+        # print(self.can_move_figure(3, 7, row, col))
+        # print(self.can_move_figure(3, 7, 0, 4))
         for i in range(8):
             for j in range(8):
                 if self.can_move_figure(i, j, row, col) is True:
@@ -167,7 +167,7 @@ class Board:
     def move_figure(self, row, col, new_row, new_col):
         if self.can_move_figure(row, col, new_row, new_col) is True:
             board2 = copy.deepcopy(self.board)
-            print(board2)
+            #print(board2)
             self.board[new_row][new_col] = self.board[row][col]
             self.board[row][col] = None
             self.isWhite = not self.isWhite

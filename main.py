@@ -63,43 +63,43 @@ class MainWindow(QMainWindow, Ui_Form):
                      "")
 
             case "logic.knight.Knight":
-                self.selectedFig.setStyleSheet\
+                self.selectedFig.setStyleSheet \
                     ("image:url(design/chess_Figure/wN.png);\n"
-"borded: none;\n"
-"background-color: rgba(255,255,255,0);")
+                     "borded: none;\n"
+                     "background-color: rgba(255,255,255,0);")
 
             case "logic.bishop.Bishop":
-                self.selectedFig.setStyleSheet\
+                self.selectedFig.setStyleSheet \
                     ("image:url(design/chess_Figure/wB.png);\n"
-"borded: none;\n"
-"background-color: rgba(255,255,255,0);")
+                     "borded: none;\n"
+                     "background-color: rgba(255,255,255,0);")
 
     def changeBlackPawn(self, text):
         match text:
             case "logic.queen.Queen":
                 self.selectedFig.setStyleSheet \
                     ("image:url(design/chess_Figure/bQ.png);\n"
-"borded: none;\n"
-"background-color: rgba(255,255,255,0);")
+                     "borded: none;\n"
+                     "background-color: rgba(255,255,255,0);")
 
             case "logic.rock.Rock":
                 self.selectedFig.setStyleSheet \
                     ("image:url(design/chess_Figure/bR.png);\n"
-"borded: none;\n"
-"background-color: rgba(255,255,255,0);\n"
-"")
+                     "borded: none;\n"
+                     "background-color: rgba(255,255,255,0);\n"
+                     "")
 
             case "logic.knight.Knight":
                 self.selectedFig.setStyleSheet \
                     ("image:url(design/chess_Figure/bN.png);\n"
-"borded: none;\n"
-"background-color: rgba(255,255,255,0);")
+                     "borded: none;\n"
+                     "background-color: rgba(255,255,255,0);")
 
             case "logic.bishop.Bishop":
                 self.selectedFig.setStyleSheet \
                     ("image:url(design/chess_Figure/bB.png);\n"
-"borded: none;\n"
-"background-color: rgba(255,255,255,0);")
+                     "borded: none;\n"
+                     "background-color: rgba(255,255,255,0);")
 
     def mousePressEvent(self, event):
         # print("Tist")
@@ -127,25 +127,34 @@ class MainWindow(QMainWindow, Ui_Form):
             if self.board.board[endY][endX] is not None:
                 isSomeFigure = True
 
-            if self.board.move_figure(startY, startX, endY, endX):
+            canDo = True
+
+            if isSomeFigure is True:
+                if self.board.board[endY][endX].get_color() \
+                        == self.board.board[startY][startX].get_color():
+                    self.selectedFig = cell
+                    canDo = False
+                print(canDo)
+
+            if self.board.move_figure(startY, startX, endY, endX)\
+                    and canDo is True:
                 if isSomeFigure is True:
                     cell.deleteLater()
                 self.selectedFig.move(cell.pos().x(), cell.pos().y())
                 # cell.deleteLater()
-                if endY == 0 and self.board.board[endY][endX].get_color()\
+                if endY == 0 and self.board.board[endY][endX].get_color() \
                         == "White":
                     index = str(self.board.board[endY][endX]).find(' ')
                     text = str(self.board.board[endY][endX])[1:index]
                     self.changeWhitePawn(text)
 
-                elif endY == 7 and self.board.board[endY][endX].get_color()\
+                elif endY == 7 and self.board.board[endY][endX].get_color() \
                         == "Black":
                     index = str(self.board.board[endY][endX]).find(' ')
                     text = str(self.board.board[endY][endX])[1:index]
                     self.changeBlackPawn(text)
-
-            self.selectedFig = None
-
+            if canDo is True:
+                self.selectedFig = None
 
     def mouseReleaseEvent(self, event):
         # print("test")
@@ -169,18 +178,17 @@ class MainWindow(QMainWindow, Ui_Form):
                 if isSomeFigure is True:
                     cell.deleteLater()
                 self.selectedFig.move(cell.pos().x(), cell.pos().y())
-                if endY == 0 and self.board.board[endY][endX].get_color()\
+                if endY == 0 and self.board.board[endY][endX].get_color() \
                         == "White":
                     index = str(self.board.board[endY][endX]).find(' ')
                     text = str(self.board.board[endY][endX])[1:index]
                     self.changeWhitePawn(text)
 
-                elif endY == 7 and self.board.board[endY][endX].get_color()\
+                elif endY == 7 and self.board.board[endY][endX].get_color() \
                         == "Black":
                     index = str(self.board.board[endY][endX]).find(' ')
                     text = str(self.board.board[endY][endX])[1:index]
                     self.changeBlackPawn(text)
-
 
             self.selectedFig = None
 
