@@ -136,7 +136,7 @@ class Ui_Form(object):
         self.wp7.setObjectName("wp7")
         self.wR1 = QtWidgets.QPushButton(parent=Form)
         self.wR1.setGeometry(QtCore.QRect(28, 389, 46, 46))
-        self.wR1.setStyleSheet("image:url(design/chess_Figure//wR.png);\n"
+        self.wR1.setStyleSheet("image:url(design/chess_Figure/wR.png);\n"
 "borded: none;\n"
 "background-color: rgba(255,255,255,0);")
         self.wR1.setText("")

@@ -11,7 +11,7 @@ class Pawn(ChessFigure):
         if col != new_col:
             return False
 
-        if self.color == "White":
+        if self.color == "Black":
             start_pos = 1
             move_distance = 1
         else:
@@ -27,7 +27,7 @@ class Pawn(ChessFigure):
         return False
 
     def can_attack(self, row, col, new_row, new_col, board):
-        move_distance = 1 if (self.color == "White") else -1
+        move_distance = 1 if (self.color == "Black") else -1
         if (Pawn.is_empty_cell(new_row, new_col, board) or
                 self.is_friendly_figure(new_row, new_col, board)):
             return False
@@ -38,7 +38,7 @@ class Pawn(ChessFigure):
         return False
 
     def is_way_clear(self, row, col, new_row, new_col, board):
-        move_distance = 1 if (self.color == "White") else -1
+        move_distance = 1 if (self.color == "Black") else -1
 
         if (row + move_distance == new_row and
                 Pawn.is_empty_cell(new_row, new_col, board)):

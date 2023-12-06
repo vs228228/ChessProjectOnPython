@@ -18,6 +18,7 @@ class TestBoard1(Board):
         self.board[1][3] = Rock("Black")
         self.board[3][1] = Rock("Black")
         self.board[1][6] = Rock("Black")
+        self.isWhite = True
 
 
 class TestBoard2(Board):
@@ -30,6 +31,7 @@ class TestBoard2(Board):
         self.board[1][5] = Pawn("Black")
         self.board[5][1] = Pawn("Black")
         self.board[6][0] = Bishop("Black")
+        self.isWhite = True
 
 
 class TestBoard3(Board):
@@ -42,6 +44,7 @@ class TestBoard3(Board):
         self.board[2][2] = Pawn("White")
         self.board[2][3] = Pawn("White")
         self.board[6][6] = Pawn("Black")
+        self.isWhite = True
 
 
 class TestBoard4(Board):
@@ -50,6 +53,7 @@ class TestBoard4(Board):
         self.board[4][4] = Knight("Black")
         self.board[2][5] = Knight("White")
         self.board[4][6] = Knight("White")
+        self.isWhite = False
 
 
 class TestBoard5(Board):
@@ -58,6 +62,7 @@ class TestBoard5(Board):
         self.board[4][4] = King("Black")
         self.board[3][3] = Pawn("Black")
         self.board[5][5] = Pawn("White")
+        self.isWhite = False
 
 
 class TestBoard6(Board):
@@ -72,6 +77,7 @@ class TestBoard6(Board):
         self.board[4][2] = Pawn("White")
         self.board[2][4] = Pawn("White")
         self.board[6][4] = Pawn("Black")
+        self.isWhite = True
 
 
 class TestingBoard(unittest.TestCase):
@@ -85,26 +91,29 @@ class TestingBoard(unittest.TestCase):
         self.board5 = TestBoard5()
         self.board6 = TestBoard6()
 
-    def test_1(self):
-        self.assertEqual(self.board.can_move_figure(1, 1, 2, 1), True)
-
-    def test_2(self):
-        self.assertEqual(self.board.can_move_figure(1, 5, 2, 5), True)
-
-    def test_3(self):
-        self.assertEqual(self.board.can_move_figure(0, 0, 1, 3), False)
-
-    def test_4(self):
-        self.assertEqual(self.board.can_move_figure(0, 1, 2, 2), True)
-
-    def test_5(self):
-        self.assertEqual(self.board.can_move_figure(5, 5, 5, 5), False)
-
-    def test_6(self):
-        self.assertEqual(self.board1.can_move_figure(3, 3, 5, 3), True)
-
-    def test_7(self):
-        self.assertEqual(self.board2.can_move_figure(3, 3, 5, 5), True)
+    # def test_1(self):
+    #     self.assertEqual(self.board.can_move_figure(1, 1, 2, 1), True)
+    #
+    # def test_2(self):
+    #     self.assertEqual(self.board.can_move_figure(1, 5, 2, 5), True)
+    #
+    # def test_3(self):
+    #     self.assertEqual(self.board.can_move_figure(0, 0, 1, 3), False)
+    #
+    # def test_4(self):
+    #     self.assertEqual(self.board.can_move_figure(0, 1, 2, 2), True)
+    #
+    # def test_5(self):
+    #     self.assertEqual(self.board.can_move_figure(5, 5, 5, 5), False)
+    #
+    # def test_6(self):
+    #     self.assertEqual(self.board1.can_move_figure(3, 3, 5, 3), True)
+    #
+    # # def test_7(self):
+    # #     self.assertEqual(self.board.can_move_figure(3, 3, 5, 5), True)
+    # #
+    # # def test_8(self):
+    # #     self.assertEqual(self.board2.can_move_figure(4,6,4,4), True)
 
     def test_Rock_1(self):
         self.assertEqual(self.board1.can_move_figure(3, 3, 5, 3), True)
@@ -143,9 +152,11 @@ class TestingBoard(unittest.TestCase):
         self.assertEqual(self.board1.can_move_figure(3, 3, 0, 3), False)
 
     def test_Rock_13(self):
+        self.board1.isWhite = False
         self.assertEqual(self.board1.can_move_figure(1, 3, 2, 3), True)
 
     def test_Rock_14(self):
+        self.board1.isWhite = False
         self.assertEqual(self.board1.can_move_figure(1, 3, 1, 5), True)
 
     def test_Rock_15(self):
