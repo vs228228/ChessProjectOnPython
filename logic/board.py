@@ -150,7 +150,49 @@ class Board:
         msg.exec()
 
     def is_checkmate(self):
-        pass
+        self.isWhite = not self.isWhite
+        if self.isCheck() is True:
+            self.isFindCheck = True
+            for i in range(8):
+                for j in range(8):
+                    board2 = copy.deepcopy(self.board)
+                    if self.board[i][j] is not None:
+                        if self.board[i][j].get_color() == "White" and \
+                                self.isWhite is False:
+                            for row in range(8):
+                                for col in range(8):
+                                    self.isWhite = not self.isWhite
+                                    if self.move_figure(i, j, row, col) \
+                                            is True:
+                                        self.isWhite = not self.isWhite
+                                        if self.isCheck() is False:
+                                            self.board = copy.deepcopy(board2)
+                                            self.isFindCheck = False
+                                            return False
+                                        self.board = copy.deepcopy(board2)
+                                    self.isWhite = not self.isWhite
+                        elif self.board[i][j].get_color() == "Black" and \
+                                self.isWhite is True:
+                            for row in range(8):
+                                for col in range(8):
+                                    self.isWhite = not self.isWhite
+                                    if self.move_figure(i, j, row, col) \
+                                            is True:
+                                        self.isWhite = not self.isWhite
+                                        if self.isCheck() is False:
+                                            self.board = copy.deepcopy(board2)
+                                            self.isFindCheck = False
+                                            return False
+                                        self.board = copy.deepcopy(board2)
+                                    self.isWhite = not self.isWhite
+            self.isWhite = not self.isWhite
+            self.board = copy.deepcopy(board2)
+            self.isFindCheck = False
+            return True
+        else:
+            self.isWhite = not self.isWhite
+            self.isFindCheck = False
+            return False
 
     def is_stalemate(self):
         pass
@@ -163,7 +205,7 @@ class Board:
                         self.board[new_row][new_col].is_moved() is False:
                     if self.board[row][col].get_color() == \
                             self.board[new_row][new_col].get_color():
-                        print("Заход есть")
+                        # print("Заход есть")
                         return True
 
         return False
@@ -191,10 +233,10 @@ class Board:
             elif self.isWhite is False and \
                     self.board[row][col].get_color() == "White":
                 return False
-            print("Ты точно смог бро")
+            # print("Ты точно смог бро")
             if self.board[new_row][new_col].is_way_clear \
                         (new_row, new_col, row, col, self.board) is True:
-                print("Ты точно смог бро 2")
+                # print("Ты точно смог бро 2")
                 king_col = 0
                 rock_col = 0
                 if col > new_col:
@@ -208,14 +250,14 @@ class Board:
                 self.isWhite = not self.isWhite
                 self.board[row][rock_col] = self.board[row][col]
                 self.board[row][col] = None
-                print(self.isCheck())
+                # print(self.isCheck())
                 if self.isCheck() is True:
                     self.isWhite = not self.isWhite
                     self.board = copy.deepcopy(board2)
                     return False
                 self.board[row][king_col] = self.board[row][rock_col]
                 self.board[row][rock_col] = None
-                print(self.isCheck())
+                # print(self.isCheck())
                 if self.isCheck() is True:
                     self.isWhite = not self.isWhite
                     self.board = copy.deepcopy(board2)
@@ -227,7 +269,7 @@ class Board:
                 self.board[new_row][rock_col] = self.board[new_row][new_col]
                 self.board[new_row][new_col] = None
                 # self.isWhite = not self.isWhite
-                print(self.board)
+                # print(self.board)
                 return True
         elif self.can_move_figure(row, col, new_row, new_col) is True:
             board2 = copy.deepcopy(self.board)
@@ -239,15 +281,15 @@ class Board:
                     (new_row == 0 or new_row == 7):
                 self.pawnToSmth()
             if self.isCheck() is True:
-                print("Ivan krit")
-                print(board2)
+                print("Под шахом будет после такого хода")
+                #print(board2)
                 self.board = copy.deepcopy(board2)
                 self.isWhite = not self.isWhite
                 return False
 
             if self.isFindCheck is False:
+                # print(self.isWhite)
                 if self.is_checkmate() is True:
-                    print("Лол")
                     msg = QMessageBox()
                     msg.setWindowTitle("Мат")
                     msg.setText("Мат")

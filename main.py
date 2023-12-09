@@ -1,8 +1,10 @@
+import time
+
 from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QMainWindow, QApplication, QMenu
 # from design.testDESIGN import Ui_Form
 import sys
-from design.lolo import Ui_Form
+from design.MainWindow import Ui_Form
 import unittest
 
 from logic.board import Board
@@ -42,10 +44,10 @@ class MainWindow(QMainWindow, Ui_Form):
         self.selectedFig = None
 
     def restart(self):
-        self.close()
         self.new_window = MainWindow()
         self.new_window.setFixedSize(739, 668)
         self.new_window.show()
+        self.close()
 
     #  window.show()
 
@@ -147,10 +149,10 @@ class MainWindow(QMainWindow, Ui_Form):
             startY = self.findYPos(self.selectedFig.pos().y())
             endX = self.findXPos(cell.pos().x())
             endY = self.findYPos(cell.pos().y())
-            print(startX)
-            print(startY)
-            print(endX)
-            print(endY)
+            # print(startX)
+            # print(startY)
+            # print(endX)
+            # print(endY)
             # print(self.board.can_move_figure(startY, startX, endY, endX))
 
             isSomeFigure = False
@@ -163,14 +165,13 @@ class MainWindow(QMainWindow, Ui_Form):
                 if self.board.board[endY][endX].get_name() == "Rock" and \
                         self.board.board[startY][startX].get_name() == "King":
                             canDo = True
-                            print("Больше нет")
+                            #print("Больше нет")
                 elif self.board.board[endY][endX].get_color() \
                         == self.board.board[startY][startX].get_color():
                     self.selectedFig = cell
-                    print("ТЫ ДАУН")
                     canDo = False
 
-                print(canDo)
+                #print(canDo)
 
             if self.board.castling_condition(startY, startX, endY, endX) is True:
                 if self.board.move_figure(startY, startX, endY, endX) is True:

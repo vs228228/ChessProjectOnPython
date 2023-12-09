@@ -22,4 +22,5 @@ class King(ChessFigure):
         if not self.is_move_valid(row, col, new_row, new_col, board):
             return False
 
+        self.__isMoved__ = True
         return True

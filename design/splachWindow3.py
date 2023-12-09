@@ -9,7 +9,7 @@ import sys
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtWidgets import QApplication, QMenu
 
-from design.lolo import Ui_Form
+from design.MainWindow import Ui_Form
 
 
 class Ui_Form1(object):
