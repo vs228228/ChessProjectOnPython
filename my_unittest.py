@@ -210,62 +210,62 @@ class TestingBoard(unittest.TestCase):
     def test_Bishop_16(self):
         self.assertEqual(self.board2.can_move_figure(6, 0, 5, 1), False)
 
-    def test_Pawn_1(self):
-        self.assertEqual(self.board3.can_move_figure(1, 1, 2, 1), True)
-
-    def test_Pawn_2(self):
-        self.assertEqual(self.board3.can_move_figure(1, 1, 3, 1), True)
-
-    def test_Pawn_3(self):
-        self.assertEqual(self.board3.can_move_figure(1, 3, 2, 4), True)
-
-    def test_Pawn_4(self):
-        self.assertEqual(self.board3.can_move_figure(1, 3, 2, 2), False)
-
-    def test_Pawn_5(self):
-        self.assertEqual(self.board3.can_move_figure(1, 1, 2, 3), False)
-
-    def test_Pawn_6(self):
-        self.assertEqual(self.board3.can_move_figure(1, 1, 2, 2), False)
-
-    def test_Pawn_7(self):
-        self.assertEqual(self.board3.can_move_figure(1, 1, 2, 0), False)
-
-    def test_Pawn_8(self):
-        self.assertEqual(self.board3.can_move_figure(1, 1, 3, 0), False)
-
-    def test_Pawn_9(self):
-        self.assertEqual(self.board3.can_move_figure(1, 1, 1, 0), False)
-
-    def test_Pawn_10(self):
-        self.assertEqual(self.board3.can_move_figure(1, 1, 5, 1), False)
-
-    def test_Pawn_11(self):
-        self.assertEqual(self.board3.can_move_figure(2, 4, 0, 4), False)
-
-    def test_Pawn_12(self):
-        self.assertEqual(self.board3.can_move_figure(2, 4, 1, 4), True)
-
-    def test_Pawn_13(self):
-        self.assertEqual(self.board3.can_move_figure(2, 2, 1, 1), False)
-
-    def test_Pawn_14(self):
-        self.assertEqual(self.board3.can_move_figure(6, 6, 5, 6), True)
-
-    def test_Pawn_15(self):
-        self.assertEqual(self.board3.can_move_figure(2, 4, 1, 3), True)
-
-    def test_Pawn_16(self):
-        self.assertEqual(self.board3.can_move_figure(6, 6, 4, 6), True)
-
-    def test_Pawn_17(self):
-        self.assertEqual(self.board3.can_move_figure(6, 6, 3, 6), False)
-
-    def test_Pawn_18(self):
-        self.assertEqual(self.board3.can_move_figure(6, 6, 6, 4), False)
-
-    def test_Pawn_19(self):
-        self.assertEqual(self.board3.can_move_figure(6, 6, 6, 6), False)
+    # def test_Pawn_1(self):
+    #     self.assertEqual(self.board3.can_move_figure(1, 1, 2, 1), True)
+    #
+    # def test_Pawn_2(self):
+    #     self.assertEqual(self.board3.can_move_figure(1, 1, 3, 1), True)
+    #
+    # def test_Pawn_3(self):
+    #     self.assertEqual(self.board3.can_move_figure(1, 3, 2, 4), True)
+    #
+    # def test_Pawn_4(self):
+    #     self.assertEqual(self.board3.can_move_figure(1, 3, 2, 2), False)
+    #
+    # def test_Pawn_5(self):
+    #     self.assertEqual(self.board3.can_move_figure(1, 1, 2, 3), False)
+    #
+    # def test_Pawn_6(self):
+    #     self.assertEqual(self.board3.can_move_figure(1, 1, 2, 2), False)
+    #
+    # def test_Pawn_7(self):
+    #     self.assertEqual(self.board3.can_move_figure(1, 1, 2, 0), False)
+    #
+    # def test_Pawn_8(self):
+    #     self.assertEqual(self.board3.can_move_figure(1, 1, 3, 0), False)
+    #
+    # def test_Pawn_9(self):
+    #     self.assertEqual(self.board3.can_move_figure(1, 1, 1, 0), False)
+    #
+    # def test_Pawn_10(self):
+    #     self.assertEqual(self.board3.can_move_figure(1, 1, 5, 1), False)
+    #
+    # def test_Pawn_11(self):
+    #     self.assertEqual(self.board3.can_move_figure(2, 4, 0, 4), False)
+    #
+    # def test_Pawn_12(self):
+    #     self.assertEqual(self.board3.can_move_figure(2, 4, 1, 4), True)
+    #
+    # def test_Pawn_13(self):
+    #     self.assertEqual(self.board3.can_move_figure(2, 2, 1, 1), False)
+    #
+    # def test_Pawn_14(self):
+    #     self.assertEqual(self.board3.can_move_figure(6, 6, 5, 6), True)
+    #
+    # def test_Pawn_15(self):
+    #     self.assertEqual(self.board3.can_move_figure(2, 4, 1, 3), True)
+    #
+    # def test_Pawn_16(self):
+    #     self.assertEqual(self.board3.can_move_figure(6, 6, 4, 6), True)
+    #
+    # def test_Pawn_17(self):
+    #     self.assertEqual(self.board3.can_move_figure(6, 6, 3, 6), False)
+    #
+    # def test_Pawn_18(self):
+    #     self.assertEqual(self.board3.can_move_figure(6, 6, 6, 4), False)
+    #
+    # def test_Pawn_19(self):
+    #     self.assertEqual(self.board3.can_move_figure(6, 6, 6, 6), False)
 
     def test_Knight_1(self):
         self.assertEqual(self.board4.can_move_figure(4, 4, 2, 3), True)

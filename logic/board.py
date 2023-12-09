@@ -43,6 +43,7 @@ class Board:
         ]
 
         self.isWhite = True
+        self.isFindCheck = False
 
     def findKingRow(self):
         if self.isWhite is True:
@@ -134,7 +135,7 @@ class Board:
         msg = QMessageBox()
         msg.setWindowTitle("Пешка дошла до конца")
         msg.setText("В какую фигуру превратить пешку?")
-        #msg.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Close)
+        # msg.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Close)
         queen = QPushButton("Ферзь")
         knight = QPushButton("Конь")
         rock = QPushButton("Ладья")
@@ -148,13 +149,31 @@ class Board:
 
         msg.exec()
 
+    def is_checkmate(self):
+        pass
+
+    def is_stalemate(self):
+        pass
+
+    def castling_condition(self, row, col, new_row, new_col):
+        if self.board[new_row][new_col] is not None:
+            if self.board[row][col].get_name() == "King" and \
+                    self.board[new_row][new_col].get_name() == "Rock":
+                if self.board[row][col].is_moved() is False and \
+                        self.board[new_row][new_col].is_moved() is False:
+                    if self.board[row][col].get_color() == \
+                            self.board[new_row][new_col].get_color():
+                        print("Заход есть")
+                        return True
+
+        return False
 
     def can_move_figure(self, row, col, new_row, new_col):
         if self.board[row][col] is None:
             return False
 
-        #print(self.isWhite)
-        #print(self.board[row][col].get_color())
+        # print(self.isWhite)
+        # print(self.board[row][col].get_color())
 
         if self.isWhite is False and self.board[row][col].get_color() == "White":
             return False
@@ -165,9 +184,54 @@ class Board:
         return self.board[row][col].can_move(row, col, new_row, new_col, self.board)
 
     def move_figure(self, row, col, new_row, new_col):
-        if self.can_move_figure(row, col, new_row, new_col) is True:
+        if self.castling_condition(row, col, new_row, new_col) is True:
+            if self.isWhite is True and \
+                    self.board[row][col].get_color() == "Black":
+                return False
+            elif self.isWhite is False and \
+                    self.board[row][col].get_color() == "White":
+                return False
+            print("Ты точно смог бро")
+            if self.board[new_row][new_col].is_way_clear \
+                        (new_row, new_col, row, col, self.board) is True:
+                print("Ты точно смог бро 2")
+                king_col = 0
+                rock_col = 0
+                if col > new_col:
+                    king_col = col - 2
+                    rock_col = king_col + 1
+                else:
+                    king_col = col + 2
+                    rock_col = king_col - 1
+
+                board2 = copy.deepcopy(self.board)
+                self.isWhite = not self.isWhite
+                self.board[row][rock_col] = self.board[row][col]
+                self.board[row][col] = None
+                print(self.isCheck())
+                if self.isCheck() is True:
+                    self.isWhite = not self.isWhite
+                    self.board = copy.deepcopy(board2)
+                    return False
+                self.board[row][king_col] = self.board[row][rock_col]
+                self.board[row][rock_col] = None
+                print(self.isCheck())
+                if self.isCheck() is True:
+                    self.isWhite = not self.isWhite
+                    self.board = copy.deepcopy(board2)
+                    return False
+
+                self.board = copy.deepcopy(board2)
+                self.board[row][king_col] = self.board[row][col]
+                self.board[row][col] = None
+                self.board[new_row][rock_col] = self.board[new_row][new_col]
+                self.board[new_row][new_col] = None
+                # self.isWhite = not self.isWhite
+                print(self.board)
+                return True
+        elif self.can_move_figure(row, col, new_row, new_col) is True:
             board2 = copy.deepcopy(self.board)
-            #print(board2)
+            # print(board2)
             self.board[new_row][new_col] = self.board[row][col]
             self.board[row][col] = None
             self.isWhite = not self.isWhite
@@ -180,6 +244,17 @@ class Board:
                 self.board = copy.deepcopy(board2)
                 self.isWhite = not self.isWhite
                 return False
+
+            if self.isFindCheck is False:
+                if self.is_checkmate() is True:
+                    print("Лол")
+                    msg = QMessageBox()
+                    msg.setWindowTitle("Мат")
+                    msg.setText("Мат")
+                    msg.setStandardButtons(QMessageBox.StandardButton.Ok)
+
+                    msg.exec()
+
             return True
         else:
             return False

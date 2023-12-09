@@ -1,3 +1,4 @@
+from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QMainWindow, QApplication, QMenu
 # from design.testDESIGN import Ui_Form
 import sys
@@ -16,8 +17,37 @@ class MainWindow(QMainWindow, Ui_Form):
         self.setupUi(self)
         self.setWindowTitle("Chess")
 
-    board = Board()
-    selectedFig = None
+        menubar = self.menuBar()
+
+        game = menubar.addMenu('Игра')
+        help = menubar.addMenu('Справка')
+
+        avtor_action = QAction('Об авторе', self)
+        help.addAction(avtor_action)
+
+        program_action = QAction('О программе', self)
+        help.addAction(program_action)
+
+        help.addSeparator()  # Разделитель
+
+        exit_action = QAction('Выход', self)
+        exit_action.triggered.connect(self.close)
+        help.addAction(exit_action)
+
+        restart_action = QAction('Перезапустить игру', self)
+        restart_action.triggered.connect(self.restart)
+        game.addAction(restart_action)
+
+        self.board = Board()
+        self.selectedFig = None
+
+    def restart(self):
+        self.close()
+        self.new_window = MainWindow()
+        self.new_window.setFixedSize(739, 668)
+        self.new_window.show()
+
+    #  window.show()
 
     def findXPos(self, px):
         x = 0
@@ -130,29 +160,53 @@ class MainWindow(QMainWindow, Ui_Form):
             canDo = True
 
             if isSomeFigure is True:
-                if self.board.board[endY][endX].get_color() \
+                if self.board.board[endY][endX].get_name() == "Rock" and \
+                        self.board.board[startY][startX].get_name() == "King":
+                            canDo = True
+                            print("Больше нет")
+                elif self.board.board[endY][endX].get_color() \
                         == self.board.board[startY][startX].get_color():
                     self.selectedFig = cell
+                    print("ТЫ ДАУН")
                     canDo = False
+
                 print(canDo)
 
-            if self.board.move_figure(startY, startX, endY, endX)\
+            if self.board.castling_condition(startY, startX, endY, endX) is True:
+                if self.board.move_figure(startY, startX, endY, endX) is True:
+                    kingX = 0
+                    rockX = 0
+                    Y = self.selectedFig.pos().y()
+                    if startX < endX:
+                        kingX = 356
+                        rockX = 301
+                    else:
+                        kingX = 136
+                        rockX = 191
+
+                    self.selectedFig.move(kingX, Y)
+                    cell.move(rockX, Y)
+                    self.selectedFig = None
+
+
+            elif self.board.move_figure(startY, startX, endY, endX) is True \
                     and canDo is True:
                 if isSomeFigure is True:
                     cell.deleteLater()
                 self.selectedFig.move(cell.pos().x(), cell.pos().y())
                 # cell.deleteLater()
-                if endY == 0 and self.board.board[endY][endX].get_color() \
-                        == "White":
-                    index = str(self.board.board[endY][endX]).find(' ')
-                    text = str(self.board.board[endY][endX])[1:index]
-                    self.changeWhitePawn(text)
+                if self.board.board[endY][endX] is not None:
+                    if endY == 0 and self.board.board[endY][endX].get_color() \
+                            == "White":
+                        index = str(self.board.board[endY][endX]).find(' ')
+                        text = str(self.board.board[endY][endX])[1:index]
+                        self.changeWhitePawn(text)
 
-                elif endY == 7 and self.board.board[endY][endX].get_color() \
-                        == "Black":
-                    index = str(self.board.board[endY][endX]).find(' ')
-                    text = str(self.board.board[endY][endX])[1:index]
-                    self.changeBlackPawn(text)
+                    elif endY == 7 and self.board.board[endY][endX].get_color() \
+                            == "Black":
+                        index = str(self.board.board[endY][endX]).find(' ')
+                        text = str(self.board.board[endY][endX])[1:index]
+                        self.changeBlackPawn(text)
             if canDo is True:
                 self.selectedFig = None
 
@@ -174,21 +228,38 @@ class MainWindow(QMainWindow, Ui_Form):
             if self.board.board[endY][endX] is not None:
                 isSomeFigure = True
 
-            if self.board.move_figure(startY, startX, endY, endX):
+            if self.board.castling_condition(startY, startX, endY, endX) is True:
+                if self.board.move_figure(startY, startX, endY, endX) is True:
+                    kingX = 0
+                    rockX = 0
+                    Y = self.selectedFig.pos().y()
+                    if startX < endX:
+                        kingX = 356
+                        rockX = 301
+                    else:
+                        kingX = 136
+                        rockX = 191
+
+                    self.selectedFig.move(kingX, Y)
+                    cell.move(rockX, Y)
+                    self.selectedFig = None
+
+            elif self.board.move_figure(startY, startX, endY, endX):
                 if isSomeFigure is True:
                     cell.deleteLater()
                 self.selectedFig.move(cell.pos().x(), cell.pos().y())
-                if endY == 0 and self.board.board[endY][endX].get_color() \
-                        == "White":
-                    index = str(self.board.board[endY][endX]).find(' ')
-                    text = str(self.board.board[endY][endX])[1:index]
-                    self.changeWhitePawn(text)
+                if self.board.board[endY][endX] is not None:
+                    if endY == 0 and self.board.board[endY][endX].get_color() \
+                            == "White":
+                        index = str(self.board.board[endY][endX]).find(' ')
+                        text = str(self.board.board[endY][endX])[1:index]
+                        self.changeWhitePawn(text)
 
-                elif endY == 7 and self.board.board[endY][endX].get_color() \
-                        == "Black":
-                    index = str(self.board.board[endY][endX]).find(' ')
-                    text = str(self.board.board[endY][endX])[1:index]
-                    self.changeBlackPawn(text)
+                    elif endY == 7 and self.board.board[endY][endX].get_color() \
+                            == "Black":
+                        index = str(self.board.board[endY][endX]).find(' ')
+                        text = str(self.board.board[endY][endX])[1:index]
+                        self.changeBlackPawn(text)
 
             self.selectedFig = None
 
@@ -210,9 +281,8 @@ class SplachWindow(QMainWindow, Ui_Form1):
 # window = MainWindow()
 
 if __name__ == '__main__':
-    # TODO Использовать паттерн MVP
 
-    # unittest.main()
+   # unittest.main()
     app = QApplication(sys.argv)
 
     window = MainWindow()
