@@ -1,5 +1,7 @@
+# Модуль тестирования передвижения фигур
+
 import unittest
-from logic.mainLogic import Board
+from logic.board import Board
 from logic.king import King
 from logic.knight import Knight
 from logic.bishop import Bishop

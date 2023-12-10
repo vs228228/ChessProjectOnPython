@@ -1,5 +1,3 @@
-import time
-
 from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QMainWindow, QApplication, QMenu
 # from design.testDESIGN import Ui_Form
@@ -9,8 +7,14 @@ import unittest
 
 from logic.board import Board
 from my_unittest import TestingBoard
-from design.splachWindow1 import Ui_Form2
-from design.splachWindow3 import Ui_Form1
+from design.SplachWindow import Ui_Form1
+from design.AboutProgram import Ui_Form2
+from design.AboutAuthor import Ui_Form3
+
+"""
+Класс основного окна. Большая часть логики
+интерфейса находится в этом классе
+"""
 
 
 class MainWindow(QMainWindow, Ui_Form):
@@ -26,9 +30,11 @@ class MainWindow(QMainWindow, Ui_Form):
 
         avtor_action = QAction('Об авторе', self)
         help.addAction(avtor_action)
+        avtor_action.triggered.connect(self.openAboutAuth)
 
         program_action = QAction('О программе', self)
         help.addAction(program_action)
+        program_action.triggered.connect(self.openAboutProg)
 
         help.addSeparator()  # Разделитель
 
@@ -49,7 +55,15 @@ class MainWindow(QMainWindow, Ui_Form):
         self.new_window.show()
         self.close()
 
-    #  window.show()
+    def openAboutProg(self):
+        self.aboutProgramWin = aboutProg()
+        self.aboutProgramWin.setFixedSize(613, 513)
+        self.aboutProgramWin.show()
+
+    def openAboutAuth(self):
+        self.aboutAuthWin = aboutAuth()
+        self.aboutAuthWin.setFixedSize(592, 490)
+        self.aboutAuthWin.show()
 
     def findXPos(self, px):
         x = 0
@@ -133,6 +147,7 @@ class MainWindow(QMainWindow, Ui_Form):
                      "borded: none;\n"
                      "background-color: rgba(255,255,255,0);")
 
+    # обрабатывает нажатие мыши
     def mousePressEvent(self, event):
         # print("Tist")
         cell = self.childAt(event.pos())
@@ -164,14 +179,14 @@ class MainWindow(QMainWindow, Ui_Form):
             if isSomeFigure is True:
                 if self.board.board[endY][endX].get_name() == "Rock" and \
                         self.board.board[startY][startX].get_name() == "King":
-                            canDo = True
-                            #print("Больше нет")
+                    canDo = True
+                    # print("Больше нет")
                 elif self.board.board[endY][endX].get_color() \
                         == self.board.board[startY][startX].get_color():
                     self.selectedFig = cell
                     canDo = False
 
-                #print(canDo)
+                # print(canDo)
 
             if self.board.castling_condition(startY, startX, endY, endX) is True:
                 if self.board.move_figure(startY, startX, endY, endX) is True:
@@ -211,6 +226,7 @@ class MainWindow(QMainWindow, Ui_Form):
             if canDo is True:
                 self.selectedFig = None
 
+    #обрабатывает отпускание мыши
     def mouseReleaseEvent(self, event):
         # print("test")
         cell = self.childAt(event.pos())
@@ -279,11 +295,24 @@ class SplachWindow(QMainWindow, Ui_Form1):
         self.close()
 
 
+class aboutProg(QMainWindow, Ui_Form2):
+
+    def __init__(self):
+        super(aboutProg, self).__init__()
+        self.setupUi(self)
+
+
+class aboutAuth(QMainWindow, Ui_Form3):
+
+    def __init__(self):
+        super(aboutAuth, self).__init__()
+        self.setupUi(self)
+
+
 # window = MainWindow()
 
 if __name__ == '__main__':
-
-   # unittest.main()
+    # unittest.main()
     app = QApplication(sys.argv)
 
     window = MainWindow()

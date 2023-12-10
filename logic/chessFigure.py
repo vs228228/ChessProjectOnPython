@@ -1,10 +1,16 @@
+"""
+Прототип для всех фигур. Часть методов фигур реализованы здесь.
+Стоит отметить, что методы can_move и is_way_clear у каждой фигуры свои
+"""
+
+
 class ChessFigure:
     __NAME__ = "SomeFigure"
 
     def __init__(self, color):
         self.color = color
 
-    # Метод проверяет возможные препядствия на пути
+    # Метод проверяет возможные препятствия на пути
     def is_way_clear(self, row, col, new_row, new_col, board):
         pass
 

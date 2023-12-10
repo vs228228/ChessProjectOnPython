@@ -169,7 +169,7 @@ class Ui_Form1(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "Курсовая работа"))
         self.BNTU.setText(_translate("Form", "Белорусский национальный технический университет"))
         self.FITR.setText(_translate("Form", "Факультет информационных технологий и робототехники"))
         self.POISIT.setText(_translate("Form", "Кафедра программного обеспечения информационных сетей и технологий"))

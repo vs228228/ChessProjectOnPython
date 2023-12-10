@@ -1,3 +1,5 @@
+# Модуль логики шахматной доски
+
 import copy
 
 from PyQt6.QtWidgets import QMessageBox, QPushButton
@@ -9,8 +11,11 @@ from logic.king import King
 from logic.queen import Queen
 from logic.bishop import Bishop
 
+"""
+Класс Board является классом, реализующем логику шахмат.
+Проверка мата, шаха и т.д., а также передвижение фигур реализованы тут
+"""
 
-# Если что, вернуть то, что черные снизу, а белые сверху. Для этого тут поменять board + поменять класс Pawn
 
 class Board:
 
