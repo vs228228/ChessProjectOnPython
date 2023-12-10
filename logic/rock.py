@@ -15,7 +15,6 @@ class Rock(ChessFigure):
         if row != new_row and col != new_col:
             return False
 
-        self.__isMoved__ = True
         return True
 
     def is_way_clear(self, row, col, new_row, new_col, board):
@@ -47,4 +46,5 @@ class Rock(ChessFigure):
         if not self.is_way_clear(row, col, new_row, new_col, board):
             return False
 
+        self.__isMoved__ = True
         return True

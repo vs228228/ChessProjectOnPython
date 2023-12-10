@@ -49,6 +49,7 @@ class Board:
 
         self.isWhite = True
         self.isFindCheck = False
+        self.isFindStalament = False
 
     def findKingRow(self):
         if self.isWhite is True:
@@ -174,7 +175,7 @@ class Board:
                                             self.board = copy.deepcopy(board2)
                                             self.isFindCheck = False
                                             return False
-                                        self.board = copy.deepcopy(board2)
+                                    self.board = copy.deepcopy(board2)
                                     self.isWhite = not self.isWhite
                         elif self.board[i][j].get_color() == "Black" and \
                                 self.isWhite is True:
@@ -188,7 +189,7 @@ class Board:
                                             self.board = copy.deepcopy(board2)
                                             self.isFindCheck = False
                                             return False
-                                        self.board = copy.deepcopy(board2)
+                                    self.board = copy.deepcopy(board2)
                                     self.isWhite = not self.isWhite
             self.isWhite = not self.isWhite
             self.board = copy.deepcopy(board2)
@@ -200,17 +201,53 @@ class Board:
             return False
 
     def is_stalemate(self):
-        pass
+        self.isWhite = not self.isWhite
+        if self.isCheck() is False:
+            self.isFindStalament = True
+            for i in range(8):
+                for j in range(8):
+                    board2 = copy.deepcopy(self.board)
+                    if self.board[i][j] is not None:
+                        if self.board[i][j].get_color() == "White" and \
+                                self.isWhite is False:
+                            self.isWhite = not self.isWhite
+                            for row in range(8):
+                                for col in range(8):
+                                    if self.move_figure(i, j, row, col) \
+                                            is True:
+                                        self.isFindStalament = False
+                                        self.board = copy.deepcopy(board2)
+                                        return False
+                        elif self.board[i][j].get_color() == "Black" and \
+                                self.isWhite is True:
+                            self.isWhite = not self.isWhite
+                            for row in range(8):
+                                for col in range(8):
+                                    if self.move_figure(i, j, row, col) \
+                                            is True:
+                                        self.isFindStalament = False
+                                        self.board = copy.deepcopy(board2)
+                                        return False
+            self.isFindStalament = False
+            return True
+        else:
+            self.isWhite = not self.isWhite
+            self.isFindStalament = False
+            return False
 
     def castling_condition(self, row, col, new_row, new_col):
         if self.board[new_row][new_col] is not None:
             if self.board[row][col].get_name() == "King" and \
                     self.board[new_row][new_col].get_name() == "Rock":
+
+                print(self.board[row][col].is_moved())
+                print(self.board[new_row][new_col].is_moved())
                 if self.board[row][col].is_moved() is False and \
                         self.board[new_row][new_col].is_moved() is False:
                     if self.board[row][col].get_color() == \
                             self.board[new_row][new_col].get_color():
-                        # print("Заход есть")
+                        print("Заход есть")
+
                         return True
 
         return False
