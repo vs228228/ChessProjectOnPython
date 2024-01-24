@@ -2,6 +2,10 @@ from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QMainWindow, QApplication, QMenu
 # from design.testDESIGN import Ui_Form
 import sys
+
+from PyQt6.uic.properties import QtWidgets, QtCore, QtGui
+from PyQt6.uic.properties import QtWidgets, QtCore, QtGui
+
 from design.MainWindow import Ui_Form
 import unittest
 
@@ -48,6 +52,14 @@ class MainWindow(QMainWindow, Ui_Form):
 
         self.board = Board()
         self.selectedFig = None
+
+    def changeMove(self):
+        if self.board.isWhite is True:
+            self.LableMove.setText("Ход белых")
+        elif self.board.isWhite is False:
+            self.LableMove.setText("Ход черных")
+        if self.board.is_checkmate() is True:
+            self.LableMove.setText("Мат")
 
     def restart(self):
         self.new_window = MainWindow()
@@ -203,6 +215,7 @@ class MainWindow(QMainWindow, Ui_Form):
                     self.selectedFig.move(kingX, Y)
                     cell.move(rockX, Y)
                     self.selectedFig = None
+                    self.changeMove()
 
 
             elif self.board.move_figure(startY, startX, endY, endX) is True \
@@ -210,6 +223,7 @@ class MainWindow(QMainWindow, Ui_Form):
                 if isSomeFigure is True:
                     cell.deleteLater()
                 self.selectedFig.move(cell.pos().x(), cell.pos().y())
+                self.changeMove()
                 # cell.deleteLater()
                 if self.board.board[endY][endX] is not None:
                     if endY == 0 and self.board.board[endY][endX].get_color() \
@@ -224,9 +238,10 @@ class MainWindow(QMainWindow, Ui_Form):
                         text = str(self.board.board[endY][endX])[1:index]
                         self.changeBlackPawn(text)
             if canDo is True:
+                self.changeMove()
                 self.selectedFig = None
 
-    #обрабатывает отпускание мыши
+    # обрабатывает отпускание мыши
     def mouseReleaseEvent(self, event):
         # print("test")
         cell = self.childAt(event.pos())
@@ -260,24 +275,28 @@ class MainWindow(QMainWindow, Ui_Form):
                     self.selectedFig.move(kingX, Y)
                     cell.move(rockX, Y)
                     self.selectedFig = None
+                    self.changeMove()
 
             elif self.board.move_figure(startY, startX, endY, endX):
                 if isSomeFigure is True:
                     cell.deleteLater()
                 self.selectedFig.move(cell.pos().x(), cell.pos().y())
+                self.changeMove()
                 if self.board.board[endY][endX] is not None:
                     if endY == 0 and self.board.board[endY][endX].get_color() \
                             == "White":
                         index = str(self.board.board[endY][endX]).find(' ')
                         text = str(self.board.board[endY][endX])[1:index]
                         self.changeWhitePawn(text)
+                        self.changeMove()
 
                     elif endY == 7 and self.board.board[endY][endX].get_color() \
                             == "Black":
                         index = str(self.board.board[endY][endX]).find(' ')
                         text = str(self.board.board[endY][endX])[1:index]
                         self.changeBlackPawn(text)
-
+                        self.changeMove()
+            self.changeMove()
             self.selectedFig = None
 
 

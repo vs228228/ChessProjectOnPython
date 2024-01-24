@@ -10,6 +10,9 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 
 
 class Ui_Form(object):
+    def __init__(self):
+            self.LableMove = None
+
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.setEnabled(True)
@@ -792,8 +795,20 @@ class Ui_Form(object):
         self.bK.raise_()
         self.bQ.raise_()
 
+        self.LableMove = QtWidgets.QLabel(parent=Form)
+        self.LableMove.setGeometry(QtCore.QRect(246, 482, 80, 80))
+        self.LableMove.setText("Ход белых")
+        self.LableMove.setObjectName("LableMove")
+        font = QtGui.QFont()
+        font.setFamily("Times New Roman")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.LableMove.setFont(font)
+
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+
 
 
 
